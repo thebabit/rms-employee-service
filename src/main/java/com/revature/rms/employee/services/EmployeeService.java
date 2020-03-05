@@ -1,10 +1,12 @@
 package com.revature.rms.employee.services;
 
 
+import com.revature.rms.employee.entities.Employee;
+import com.revature.rms.employee.exceptions.ResourceNotFoundException;
 import com.revature.rms.employee.repositories.EmployeeRepository;
-import com.revature.rms.employee.repositories.ResourceMetadataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EmployeeService {
@@ -15,5 +17,23 @@ public class EmployeeService {
     public EmployeeService(EmployeeRepository repo) {
         super();
         this.employeeRepo = repo;
+    }
+
+    @Transactional(readOnly = true)
+    public Employee getEmployeeById(int id) throws ResourceNotFoundException{
+        return employeeRepo.findById(id);
+    }
+
+    @Transactional
+    public Employee update(Employee updatedEmp) {
+        Employee employee = getEmployeeById(updatedEmp.getId());
+        employee.setDepartment(updatedEmp.getDepartment());
+        employee.setTitle(updatedEmp.getTitle());
+        return employee;
+    }
+
+    @Transactional
+    public Employee addEmployee(Employee newEmployee) {
+        return employeeRepo.save(newEmployee);
     }
 }

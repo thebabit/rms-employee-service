@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ResourceMetadataRepository extends CrudRepository<ResourceMetadata,Integer> {
+    ResourceMetadata findByResourceId(int id);
 }

@@ -11,6 +11,9 @@ public class ResourceMetadata {
     @Id
     @Column
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private int resourceId;
+
+    @Column(nullable=false)
     private int resourceCreator;
 
     @Column(nullable=false)
@@ -29,12 +32,35 @@ public class ResourceMetadata {
         super();
     }
 
+    public ResourceMetadata(int resourceId, int resourceCreator, String resourceCreationDateTime, int lastModifier, String lastModifiedDateTime, int resourceOwner) {
+        this.resourceId = resourceId;
+        this.resourceCreator = resourceCreator;
+        this.resourceCreationDateTime = resourceCreationDateTime;
+        this.lastModifier = lastModifier;
+        this.lastModifiedDateTime = lastModifiedDateTime;
+        this.resourceOwner = resourceOwner;
+    }
+
     public ResourceMetadata(int resourceCreator, String resourceCreationDateTime, int lastModifier, String lastModifiedDateTime, int resourceOwner) {
         this.resourceCreator = resourceCreator;
         this.resourceCreationDateTime = resourceCreationDateTime;
         this.lastModifier = lastModifier;
         this.lastModifiedDateTime = lastModifiedDateTime;
         this.resourceOwner = resourceOwner;
+    }
+
+    public ResourceMetadata(int resourceCreator, int lastModifier, int resourceOwner) {
+        this.resourceCreator = resourceCreator;
+        this.lastModifier = lastModifier;
+        this.resourceOwner = resourceOwner;
+    }
+
+    public int getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(int resourceId) {
+        this.resourceId = resourceId;
     }
 
     public int getResourceCreator() {
@@ -82,7 +108,8 @@ public class ResourceMetadata {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ResourceMetadata that = (ResourceMetadata) o;
-        return resourceCreator == that.resourceCreator &&
+        return resourceId == that.resourceId &&
+                resourceCreator == that.resourceCreator &&
                 lastModifier == that.lastModifier &&
                 resourceOwner == that.resourceOwner &&
                 Objects.equals(resourceCreationDateTime, that.resourceCreationDateTime) &&
@@ -91,13 +118,14 @@ public class ResourceMetadata {
 
     @Override
     public int hashCode() {
-        return Objects.hash(resourceCreator, resourceCreationDateTime, lastModifier, lastModifiedDateTime, resourceOwner);
+        return Objects.hash(resourceId, resourceCreator, resourceCreationDateTime, lastModifier, lastModifiedDateTime, resourceOwner);
     }
 
     @Override
     public String toString() {
         return "ResourceMetadata{" +
-                "resourceCreator=" + resourceCreator +
+                "resourceId=" + resourceId +
+                ", resourceCreator=" + resourceCreator +
                 ", resourceCreationDateTime='" + resourceCreationDateTime + '\'' +
                 ", lastModifier=" + lastModifier +
                 ", lastModifiedDateTime='" + lastModifiedDateTime + '\'' +

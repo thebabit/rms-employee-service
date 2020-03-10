@@ -26,11 +26,9 @@ public class EmployeeService {
 
     @Transactional
     public Employee update(Employee updatedEmp) {
-        Employee employee = getEmployeeById(updatedEmp.getId());
-        employee.setDepartment(updatedEmp.getDepartment());
-        employee.setTitle(updatedEmp.getTitle());
-        return employee;
+        return employeeRepo.save(updatedEmp);
     }
+
 
     @Transactional
     public Employee addEmployee(Employee newEmployee) {

@@ -24,24 +24,24 @@ public class ResourceMetadataService {
 
     @Transactional(readOnly = true)
     public ResourceMetadata findById(int id)throws ResourceNotFoundException {
-        return resourceRepo.findByResourceId(id);
+        return resourceRepo.findByResourceId (id);
     }
 
     @Transactional
-    public void save(ResourceMetadata newResource) throws ResourcePersistenceException{
+    public ResourceMetadata save(ResourceMetadata newResource) throws ResourcePersistenceException{
         LocalDate today = LocalDate.now();
         String createdDate = today.toString();
         String lastModifiedDate = today.toString();
         newResource.setResourceCreationDateTime(createdDate);
         newResource.setLastModifiedDateTime(lastModifiedDate);
-        resourceRepo.save(newResource);
+        return resourceRepo.save(newResource);
     }
 
     @Transactional
-    public void update(ResourceMetadata updatedResource){
+    public ResourceMetadata update(ResourceMetadata updatedResource){
         LocalDate today = LocalDate.now();
         String lastModifiedDate = today.toString();
         updatedResource.setLastModifiedDateTime(lastModifiedDate);
-        resourceRepo.save(updatedResource);
+        return resourceRepo.save(updatedResource);
     }
 }

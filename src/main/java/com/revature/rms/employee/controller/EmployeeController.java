@@ -23,12 +23,12 @@ public class EmployeeController {
     }
 
     @GetMapping(value="/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Employee getEmployeeById(@PathVariable int id) {
+    public Employee getEmployeeById(@PathVariable @RequestBody int id) {
         return employeeService.getEmployeeById(id);
     }
 
-    @GetMapping(value="/group",produces = MediaType.APPLICATION_JSON_VALUE)
-    public Set<Employee> getEmployeesById(Set<Integer> ids){
+    @GetMapping(value="/group/{ids}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public Set<Employee> getEmployeesById(@PathVariable @RequestBody Set<Integer> ids){
         Set<Employee> employees = new HashSet<>();
         for (int s : ids) {
             employees.add(employeeService.getEmployeeById(s));

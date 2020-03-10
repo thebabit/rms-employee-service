@@ -34,9 +34,9 @@ public class Employee {
     private Department department;
 
 
-    @OneToMany( fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    private List<ResourceMetadata> resourceMetadata;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private ResourceMetadata resourceMetadata;
 
 
     public int getId() {
@@ -87,11 +87,11 @@ public class Employee {
         this.department = department;
     }
 
-    public List<ResourceMetadata> getResourceMetadata() {
+    public ResourceMetadata getResourceMetadata() {
         return resourceMetadata;
     }
 
-    public void setResourceMetadata(List<ResourceMetadata> resourceMetadata) {
+    public void setResourceMetadata(ResourceMetadata resourceMetadata) {
         this.resourceMetadata = resourceMetadata;
     }
 
@@ -114,7 +114,7 @@ public class Employee {
         this.department = department;
     }
 
-    public Employee(String firstName, String lastName, String email, String title, List<ResourceMetadata> resourceMetadata) {
+    public Employee(String firstName, String lastName, String email, String title, ResourceMetadata resourceMetadata) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -122,7 +122,7 @@ public class Employee {
         this.resourceMetadata = resourceMetadata;
     }
 
-    public Employee(String firstName, String lastName, String email, String title, Department department, List<ResourceMetadata> resourceMetadata) {
+    public Employee(String firstName, String lastName, String email, String title, Department department, ResourceMetadata resourceMetadata) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -131,7 +131,7 @@ public class Employee {
         this.resourceMetadata = resourceMetadata;
     }
 
-    public Employee(int id, String firstName, String lastName, String email, String title, Department department, List<ResourceMetadata> resourceMetadata) {
+    public Employee(int id, String firstName, String lastName, String email, String title, Department department, ResourceMetadata resourceMetadata) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -141,12 +141,7 @@ public class Employee {
         this.resourceMetadata = resourceMetadata;
     }
 
-    public void addResource(ResourceMetadata... resourceMetadata1) {
-        if (resourceMetadata == null) resourceMetadata = new ArrayList<>();
-        for (ResourceMetadata u : resourceMetadata1) {
-            resourceMetadata.add(u);
-        }
-    }
+
 
     @Override
     public boolean equals(Object o) {

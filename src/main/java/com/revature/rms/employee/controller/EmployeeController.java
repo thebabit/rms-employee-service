@@ -90,7 +90,7 @@ public class EmployeeController {
     }
 
 
-    @PostMapping(value = "/getallbyid", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping (value = "/getallbyid", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Employee> getAllById (@RequestBody List<Integer> ids){
         List<Employee> employees = new ArrayList<>();
         for (int s : ids) {

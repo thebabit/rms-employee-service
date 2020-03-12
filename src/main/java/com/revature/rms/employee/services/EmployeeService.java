@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 @Service
 public class EmployeeService {
 
@@ -18,6 +22,11 @@ public class EmployeeService {
         super();
         this.employeeRepo = repo;
     }
+
+    public EmployeeService() {
+
+    }
+
 
     @Transactional(readOnly = true)
     public Employee getEmployeeById(int id) throws ResourceNotFoundException{
@@ -34,4 +43,34 @@ public class EmployeeService {
     public Employee addEmployee(Employee newEmployee) {
         return employeeRepo.save(newEmployee);
     }
+
+    @Transactional(readOnly = true)
+    public Employee findByFirstname(String name) throws ResourceNotFoundException{
+        return employeeRepo.findByFirstName(name);
+
+    }
+
+    @Transactional(readOnly = true)
+    public List<Employee> getall() throws ResourceNotFoundException{
+        Iterable<Employee> e = employeeRepo.findAll();
+        List<Employee> list = getListFromIterator(e);
+        return list;
+
+
+    }
+    public static <T> List<T> getListFromIterator(Iterable<T> iterable)
+    {
+
+        List<T> list = new ArrayList<>();
+
+        // Add each element of iterator to the List
+        iterable.forEach(list::add);
+
+        // Return the List
+        return list;
+    }
+
+
+
+
 }

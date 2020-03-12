@@ -4,10 +4,7 @@ import com.revature.rms.employee.entities.ResourceMetadata;
 import com.revature.rms.employee.services.ResourceMetadataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/resource")
@@ -44,5 +41,24 @@ public class ResourceController {
         meta.setLastModifier(data.getLastModifier());
         meta.setResourceOwner(data.getResourceOwner());
         return service.update(meta);
+    }
+
+    @PostMapping(value = "/findbyid", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResourceMetadata findById(@RequestBody ResourceMetadata data){
+
+        int id = data.getResourceId();
+        return service.findById(id);
+    }
+
+    @PostMapping(value = "/findbycreator", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResourceMetadata findByCreator(@RequestBody ResourceMetadata data){
+
+        int id = data.getResourceCreator();
+        return service.findbyCreator(id);
+    }
+
+    @GetMapping("/test")
+    public @ResponseBody String test() {
+        return "resourceController loaded";
     }
 }

@@ -44,4 +44,10 @@ public class ResourceMetadataService {
         updatedResource.setLastModifiedDateTime(lastModifiedDate);
         return resourceRepo.save(updatedResource);
     }
+
+    @Transactional(readOnly = true)
+    public ResourceMetadata findbyCreator(int id)throws ResourceNotFoundException {
+        return resourceRepo.findByResourceCreator(id);
+    }
+
 }

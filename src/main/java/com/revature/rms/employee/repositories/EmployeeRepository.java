@@ -10,5 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmployeeRepository extends CrudRepository<Employee, Integer>{
     Employee findById(int id);
+    Employee findByFirstName(String fname);
 
 }

@@ -99,5 +99,27 @@ public class EmployeeController {
         return employees;
     }
 
+    @PostMapping(value = "/getbyid", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Employee getByid(@RequestBody @Valid EmployeeCreds employee) {
+        int id = employee.getId();
+
+        return employeeService.getEmployeeById(id);
+    }
+    @PostMapping(value = "/getbyfirstname", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Employee getByfirstname(@RequestBody @Valid EmployeeCreds employee) {
+        String fname = employee.getFirstName();
+
+        return employeeService.findByFirstname(fname);
+    }
+
+    @GetMapping("/employees")
+    public List<Employee> getAllEmployees() {
+        return employeeService.getall();
+    }
+
+    @GetMapping("/test")
+    public @ResponseBody String test() {
+        return "employeeController loaded";
+    }
 
 }

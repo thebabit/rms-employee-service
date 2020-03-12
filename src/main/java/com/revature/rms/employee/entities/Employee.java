@@ -39,6 +39,8 @@ public class Employee {
     private ResourceMetadata resourceMetadata;
 
 
+
+
     public int getId() {
         return id;
     }
@@ -99,6 +101,9 @@ public class Employee {
     public Employee() {super();
     }
 
+    public Employee(String firstName) {
+        this.firstName = firstName;
+    }
     public Employee(String firstName, String lastName, String email, String title) {
         this.firstName = firstName;
         this.lastName = lastName;
